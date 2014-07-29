@@ -12,7 +12,7 @@ RUN yum install -y initscripts
 USER postgres
 
 
-RUN service postgresql initdb
+RUN /usr/pgsql-9.3/bin/initdb -D /var/lib/postgresql/data
 RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/9.3/data/pg_hba.conf
 RUN echo "host    all             docker          0.0.0.0/0               trust" >> /var/lib/pgsql/9.3/data/pg_hba.conf
 RUN echo "listen_addresses = '*'" >> /var/lib/pgsql/9.3/data/postgresql.conf
