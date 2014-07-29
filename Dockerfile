@@ -10,7 +10,7 @@ RUN yum install -y proj proj-devel geos geos-devel postgresql93 postgresql93-ser
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
 
-RUN sudo service postgresql-9.3 initdb
+RUN service postgresql-9.3 initdb
 RUN sed -i.bak -e '53d' /etc/init.d/postgresql-9.3
 RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/9.3/data/pg_hba.conf
 RUN echo "host    all             docker          0.0.0.0/0               trust" >> /var/lib/pgsql/9.3/data/pg_hba.conf
