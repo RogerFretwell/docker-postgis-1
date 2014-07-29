@@ -5,8 +5,8 @@ MAINTAINER erickbrower
 RUN sed -i.bak '/^\[base\]/a exclude=postgresql\*' /etc/yum.repos.d/CentOS-Base.repo
 RUN sed -i.bak '/^\[updates\]/a exclude=postgresql\*' /etc/yum.repos.d/CentOS-Base.repo 
 RUN rpm -Uvh http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
-RUN yum install -y proj proj-devel geos geos-devel postgresql2_93 postgresql2_93-server postgresql2_93-contrib
-RUN su - postgres -c /usr/pgsql-9.3/bin/initdb
+RUN yum install -y proj proj-devel geos geos-devel postgresql93 postgresql93-server postgres93-libs postgres93-devel postgresql93-contrib
+RUN service postgresql-9.3 initdb
 RUN sed -i.bak -e '53d' /etc/init.d/postgresql-9.3
 RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/9.3/data/pg_hba.conf
 RUN echo "host    all             docker          0.0.0.0/0               trust" >> /var/lib/pgsql/9.3/data/pg_hba.conf
