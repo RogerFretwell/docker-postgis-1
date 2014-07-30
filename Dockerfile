@@ -7,12 +7,10 @@ RUN sed -i.bak '/^\[updates\]/a exclude=postgresql\*' /etc/yum.repos.d/CentOS-Ba
 RUN rpm -Uvh http://yum.postgresql.org/9.3/redhat/rhel-6-x86_64/pgdg-centos93-9.3-1.noarch.rpm
 RUN yum install -y proj proj-devel geos geos-devel postgresql93 postgresql93-server postgres93-libs postgres93-devel postgresql93-contrib
 #RUN yum install -y initscripts
+RUN /usr/pgsql-9.3/bin/postgresql93-setup initdb
 
 # Run the rest of the commands as the ``postgres`` user created by the ``postgres-9.3`` package when it was ``apt-get installed``
 USER postgres
-
-
-RUN /usr/pgsql-9.3/bin/postgresql93-setup initdb
 
 #VOLUME ["/etc/postgresql", "/var/log/postgresql", "/var/lib/postgresql/data"]
 #RUN /usr/pgsql-9.3/bin/initdb -D /var/lib/postgresql/data
