@@ -20,7 +20,7 @@ RUN echo "listen_addresses = '*'" >> /var/lib/pgsql/9.3/data/postgresql.conf
 RUN echo "port = 5432" >> /var/lib/pgsql/9.3/data/postgresql.conf
 RUN service postgresql-9.3 start && runuser -l postgres -c 'createuser -d -s -r -l docker' &&\
   runuser -l postgres -c "psql postgres -c \"ALTER USER docker WITH ENCRYPTED PASSWORD 'docker'\"" &&\
-  runuser -l postgres -c "psql postgres -c \"CREATE extension postgis; create extension postgis_topology;\" &&\
+  runuser -l postgres -c "psql postgres -c \"CREATE extension postgis; create extension postgis_topology;\"" &&\
   service postgresql-9.3 stop
 
 EXPOSE 5432
