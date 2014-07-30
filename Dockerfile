@@ -24,5 +24,5 @@ RUN service postgresql-9.3 start && runuser -l postgres -c 'createuser -d -s -r 
   service postgresql-9.3 stop
 
 EXPOSE 5432
-run yum install -y system-config-services
+RUN yum install -y system-config-services
 CMD ["/bin/su", "postgres", "-c", "/usr/pgsql-9.3/bin/postgres -D /var/lib/pgsql/9.3/data -c config_file=/var/lib/pgsql/9.3/data/postgresql.conf"]
