@@ -1,6 +1,6 @@
 FROM centos
 
-MAINTAINER erickbrower
+MAINTAINER rogerfretwell
 
 RUN sed -i.bak '/^\[base\]/a exclude=postgresql\*' /etc/yum.repos.d/CentOS-Base.repo
 RUN sed -i.bak '/^\[updates\]/a exclude=postgresql\*' /etc/yum.repos.d/CentOS-Base.repo 
