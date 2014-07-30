@@ -18,11 +18,11 @@ RUN echo "host    all             all             0.0.0.0/0               md5" >
 RUN echo "host    all             docker          0.0.0.0/0               trust" >> /var/lib/pgsql/9.3/data/pg_hba.conf
 RUN echo "listen_addresses = '*'" >> /var/lib/pgsql/9.3/data/postgresql.conf
 RUN echo "port = 5432" >> /var/lib/pgsql/9.3/data/postgresql.conf
+RUN yum install -y system-config-services
 RUN service postgresql-9.3 start && runuser -l postgres -c 'createuser -d -s -r -l docker' &&\
   runuser -l postgres -c "psql postgres -c \"ALTER USER docker WITH ENCRYPTED PASSWORD 'docker'\"" &&\
   runuser -l postgres -c "psql postgres -c \"CREATE extension postgis; create extension postgis_topology;\"" &&\
   service postgresql-9.3 stop
 
 EXPOSE 5432
-RUN yum install -y system-config-services
 CMD ["/bin/su", "postgres", "-c", "/usr/pgsql-9.3/bin/postgres -D /var/lib/pgsql/9.3/data -c config_file=/var/lib/pgsql/9.3/data/postgresql.conf"]
