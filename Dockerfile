@@ -19,6 +19,7 @@ RUN echo "host    all             docker          0.0.0.0/0               trust"
 RUN echo "listen_addresses = '*'" >> /var/lib/pgsql/9.3/data/postgresql.conf
 RUN echo "port = 5432" >> /var/lib/pgsql/9.3/data/postgresql.conf
 
+USER root
 RUN /usr/pgsql-9.3/bin/pg_ctl start -D /var/lib/pgsql/9.3/data &&\
   runuser -l postgres -c "createuser -d -s -r -l docker" &&\
   runuser -l postgres -c "psql postgres -c \"ALTER USER docker WITH ENCRYPTED PASSWORD 'docker'\"" &&\
@@ -26,4 +27,6 @@ RUN /usr/pgsql-9.3/bin/pg_ctl start -D /var/lib/pgsql/9.3/data &&\
   /usr/pgsql-9.3/bin/pg_ctl stop
 
 EXPOSE 5432
+
+USER postgres
 CMD ["/bin/su", "postgres", "-c", "/usr/pgsql-9.3/bin/postgres -D /var/lib/pgsql/9.3/data -c config_file=/var/lib/pgsql/9.3/data/postgresql.conf"]
